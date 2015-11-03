@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var redis = require('redis').createClient();
 
-redis.subscribe('rt-change');
+redis.subscribe('data-change');
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
