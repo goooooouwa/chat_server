@@ -23,13 +23,16 @@
     <script>
       var socket = io();
       $('form').submit(function(){
+        $.post("http://localhost:3000/posts.json", { "post": { "title": $('#m').val() } });
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
         return false;
         });
+
         socket.on('chat message', function(msg){
           $('#messages').append($('<li>').text(msg));
           });
+
         socket.on('rt-change', function(msg){
           $('#messages').append($('<li>').text(msg));
           });
