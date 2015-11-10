@@ -1,0 +1,8 @@
+app:
+  build: .
+  command: node index.js
+  ports:
+    - "3001:3001"
+  external_links:
+    - myapi_app_1:api
+    - some-redis:redis
