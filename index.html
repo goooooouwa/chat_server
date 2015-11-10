@@ -23,7 +23,9 @@
     <script>
       var socket = io();
       $('form').submit(function(){
-        $.post("http://localhost:3000/posts.json", { "post": { "title": $('#m').val() } });
+        // This won't work since this code is run in client browser,
+        // which has no knowledge on Docker internal.
+        $.post("http://api:3000/posts.json", { "post": { "title": $('#m').val() } });
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
         return false;
