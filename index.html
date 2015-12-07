@@ -18,14 +18,14 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://localhost.ssl:3000/socket.io.js"></script>
+    <script src="https://localhost.ssl:3000/jquery-1.8.3.min.js"></script>
     <script>
-      var socket = io();
+      var socket = io.connect('https://localhost.ssl');
       $('form').submit(function(){
         // This won't work since this code is run in client browser,
         // which has no knowledge on Docker internal.
-        $.post("http://192.168.99.100:3000/posts.json", { "post": { "title": $('#m').val() } });
+        $.post("https://localhost.ssl:3000/posts.json", { "post": { "title": $('#m').val() } });
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
         return false;

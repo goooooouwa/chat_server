@@ -1,7 +1,15 @@
+var fs = require('fs');
+var https = require('https');
+
+var privateKey  = fs.readFileSync('/Users/gregxu/.ssl/server.key', 'utf8');
+var certificate = fs.readFileSync('/Users/gregxu/.ssl/server.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+
 var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var redis = require('redis').createClient(6379, 'redis');
+var httpsServer = https.createServer(credentials, app);
+
+var io = require('socket.io').listen(httpsServer);
+var redis = require('redis').createClient(6379, 'localhost');
 
 redis.subscribe('data-change');
 
@@ -27,6 +35,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(3001, function(){
+httpsServer.listen("https://localhost.ssl:3001", function(){
   console.log('listening on *:3001');
 });
