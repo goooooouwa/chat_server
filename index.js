@@ -1,5 +1,4 @@
-var http = require('http').Server();
-var io = require('socket.io')(http);
+var io = require('socket.io')(3001);
 var redis = require('redis').createClient(6379, 'localhost');
 
 redis.subscribe('data-change');
@@ -19,8 +18,4 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-});
-
-http.listen(3001, function(){
-  console.log('listening on *:3001');
 });
