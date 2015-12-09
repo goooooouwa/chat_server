@@ -1,5 +1,5 @@
 var io = require('socket.io')(3001);
-var redis = require('redis').createClient(6379, 'localhost');
+var redis = require('redis').createClient(6379, process.env.REDIS_URL);
 
 redis.subscribe('data-change');
 
