@@ -1,14 +1,8 @@
-var app = require('express')();
-var http = require('http').Server(app);
+var http = require('http').Server();
 var io = require('socket.io')(http);
-var redis = require('redis').createClient(6379, 'redis');
+var redis = require('redis').createClient(6379, 'localhost');
 
 redis.subscribe('data-change');
-
-app.get('/', function(req, res){
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.sendFile(__dirname + '/index.html');
-});
 
 io.on('connection', function(socket){
   console.log('a user connected');
