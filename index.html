@@ -25,7 +25,7 @@
       $('form').submit(function(){
         // This won't work since this code is run in client browser,
         // which has no knowledge on Docker internal.
-        $.post("http://192.168.99.100:3000/posts.json", { "post": { "title": $('#m').val() } });
+        $.post("https://myapi-service.herokuapp.com/posts.json", { "post": { "title": $('#m').val() } });
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
         return false;
